@@ -13,9 +13,11 @@ Public Sub toggle_v_mode()
         v_mod = True
         Call VShortcuts
         Call select_mode
+        Call statusbar("-- VISUAL --")
     Else
         v_mod = False
         Call NShortcuts
+        Call statusbar("-- NORMAL --")
     End If
     Debug.Print "v_mod: " & v_mod
 End Sub
@@ -109,6 +111,7 @@ Sub insert_mode()
     On Error GoTo ErrorHandler
     keybd_event vbKeyF2, 0, 0, 0
     keybd_event vbKeyF2, 0, KEYUP, 0
+    Call statusbar("-- INSERT --") ' TODO change back no NORMAL with Esc and Ctrl+[
     Exit Sub
 ErrorHandler:
     Debug.Print Err.Number & vbNewLine & Err.Description
@@ -169,11 +172,14 @@ Sub J()
     ' activecell value += bottomcell value
     ' clear bottomcell value
     If ActiveCell.Offset(1, 0).Value <> "" Then
-        ActiveCell.Value = ActiveCell.Value & " " & ActiveCell.Offset(1, 0).Value
+        If ActiveCell.Value <> "" Then
+            ActiveCell.Value = Join(Array(ActiveCell.Value, ActiveCell.Offset(1, 0).Value))
+        Else
+            ActiveCell.Value = ActiveCell.Offset(1, 0).Value
+        End If
         ActiveCell.Offset(1, 0).ClearContents
     End If
 End Sub
-
 Sub select_mode()
 
     Dim active_cell As Range
@@ -183,3 +189,7 @@ Sub select_mode()
     active_cell.Activate 'again
     
 End Sub
+Function statusbar(status As String)
+    Application.DisplayStatusBar = True
+    Application.statusbar = status
+End Function
