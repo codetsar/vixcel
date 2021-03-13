@@ -2,7 +2,7 @@
 .xlam for vim shortcuts in excel
 
 <p align="left">
-  <img src="IMG_20210312_171231_647.jpg" width="350">
+  <img src="statusbar.jpg" width="350">
 </p>
 
 - hljk movements
