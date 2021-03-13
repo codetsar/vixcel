@@ -7,6 +7,10 @@ Declare PtrSafe Sub keybd_event Lib "User32" (ByVal bVk As Byte, ByVal bScan As 
 Const KEYUP = &H2
 Global v_mod As Boolean
 Global tail_cell As Range
+Sub Auto_Open()
+    Call CreateShortcut
+    Call NShortcuts
+End Sub
 Public Sub toggle_v_mode()
     If v_mod = False Then
         Set tail_cell = ActiveCell
