@@ -11,4 +11,4 @@
 
 - C-a increment rightmost number in cell.value
 - J append bottom cell value
-
+.
